@@ -58,7 +58,7 @@ class OrderStatusController extends Controller
         $order = Order::findOrFail($orderId);
 
         // Only admins can update
-        if (Auth::user()->role !== 1) {
+        if (Auth::user()->role !== 'admin') {
             abort(403, 'Unauthorized');
         }
 
