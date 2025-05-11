@@ -67,17 +67,24 @@ public function show(Product $product)
         ->take(6)
         ->get();
 
-    // Check if the user has purchased this product
     $hasPurchased = false;
+    $review = null;
 
-   if (Auth::check()) {
-        $hasPurchased = OrderItem::whereHas('order', function ($query) {
-            $query->where('user_id', Auth::id());
+    if (Auth::check()) {
+        $user = Auth::user();
+
+        // Check if user purchased this product
+        $hasPurchased = OrderItem::whereHas('order', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
         })->where('product_id', $product->id)->exists();
+
+        // Fetch user's review for this product if it exists
+        $review = $product->reviews()->where('user_id', $user->id)->first();
     }
 
-    return view('products.show', compact('product', 'relatedProducts', 'hasPurchased'));
+    return view('products.show', compact('product', 'relatedProducts', 'hasPurchased', 'review'));
 }
+
 
     /**
      * Show the form for editing the specified resource.
