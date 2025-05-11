@@ -53,23 +53,24 @@ class CheckoutController extends Controller
             ]
         ]);
 
-        // $redirectUrl = config('services.flutterwave.redirect');
-    
-        $payload = [
-            'tx_ref' => $tx_ref,
-            'amount' => floatval($amount),
-            'currency' => 'NGN',
-            'redirect_url' => 'https://beige-garlics-draw.loca.lt/payment.callback',
-            'payment_options' => 'card',
-            'customer' => [
-                'email' => $request->email,
-                'name' => $request->name,
-            ],
-            'customizations' => [
-                'title' => 'FastCart',
-                'description' => 'Payment for your cart items',
-            ],
-        ];
+      // $redirectUrl = config('services.flutterwave.redirect');
+
+$payload = [
+    'tx_ref' => $tx_ref,
+    'amount' => floatval($amount),
+    'currency' => 'NGN',
+    'redirect_url' => 'https://mercatia.store/payment/callback',
+    'payment_options' => 'card',
+    'customer' => [
+        'email' => $request->email,
+        'name' => $request->name,
+    ],
+    'customizations' => [
+        'title' => 'Mercatia Store',
+        'description' => 'Secure payment for your Mercatia cart items',
+    ],
+];
+
     
         $response = Http::withToken(config('services.flutterwave.secret_key'))
             ->withHeaders([
