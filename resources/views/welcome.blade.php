@@ -77,18 +77,18 @@
                                     <h3 class="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
                                         {{ $product->name }}
                                     </h3>
-                                    @if($product->reviews->count())
-                                        <div class="mb-2 text-yellow-500">
-                                            {!! str_repeat('⭐', round($product->average_rating)) !!}
-                                            <span class="ml-1 text-sm text-gray-600 dark:text-gray-400">
-                                                ({{ round($product->average_rating, 1) }}/5)
-                                            </span>
-                                        </div>
-                                    @else
-                                        <div class="mb-2 text-sm text-gray-500">
-                                            No ratings yet
-                                        </div>
-                                    @endif
+                                    @if($product->average_rating)
+    <div class="mb-2 text-yellow-500">
+        {!! str_repeat('⭐', round($product->average_rating)) !!}
+        <span class="ml-1 text-sm text-gray-600 dark:text-gray-400">
+            ({{ round($product->average_rating, 1) }}/5)
+        </span>
+    </div>
+@else
+    <div class="mb-2 text-sm text-gray-500">
+        No ratings yet
+    </div>
+@endif
 
                                     <p class="mb-4 text-sm text-gray-600 dark:text-gray-400">
                                         {{ \Illuminate\Support\Str::limit($product->description, 60) }}
