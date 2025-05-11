@@ -25,7 +25,16 @@
                 Placed on: {{ $order->created_at->format('F j, Y - h:i A') }}
             </p>
 
-           
+            <p class="mb-1 text-sm text-gray-600">
+                Payment Method: <span class="font-medium">{{ ucfirst($order->payment_method) }}</span>
+            </p>
+            <p class="mb-1 text-sm text-gray-600">
+                Payment Status: 
+                <span class="font-medium {{ $order->payment_status === 'paid' ? 'text-green-600' : 'text-yellow-600' }}">
+                    {{ ucfirst($order->payment_status) }}
+                </span>
+            </p>
+
 
             <p class="mb-4 text-sm text-gray-600">
                 Shipping to: {{ $order->address }}, {{ $order->city }}, {{ $order->state }} {{ $order->zip }}
@@ -57,7 +66,6 @@
                     View Status
                 </a>
             </div>
-            
         </div>
     @empty
         <p class="text-gray-600">You haven’t placed any orders yet.</p>

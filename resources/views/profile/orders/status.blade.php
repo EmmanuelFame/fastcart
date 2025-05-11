@@ -13,6 +13,14 @@
             <p><strong>Shipping Address:</strong> {{ $order->address }}, {{ $order->city }}, {{ $order->state }}, {{ $order->zip }}</p>
             <p><strong>Total:</strong> ₦{{ number_format($order->total, 2) }}</p>
             <p><strong>Placed On:</strong> {{ $order->created_at->format('Y-m-d H:i') }}</p>
+            <p><strong>Payment Method:</strong> {{ ucfirst($order->payment_method) }}</p>
+            <p>
+                <strong>Payment Status:</strong> 
+                <span class="{{ $order->payment_status === 'paid' ? 'text-success' : 'text-warning' }}">
+                    {{ ucfirst($order->payment_status) }}
+                </span>
+            </p>
+
         </div>
     </div>
 
