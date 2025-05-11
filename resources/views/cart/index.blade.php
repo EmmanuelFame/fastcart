@@ -66,12 +66,11 @@
             <a href="{{ route('checkout.index') }}" class="inline-flex items-center px-6 py-3 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-green-300">
                 Proceed to Checkout
             </a>
-            <form action="{{ route('checkout.pod') }}" method="POST">
-    @csrf
-    <button type="submit" class="inline-flex items-center px-6 py-3 text-sm font-medium text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:ring-gray-400">
-        Pay on Delivery
-    </button>
-</form>
+            <a href="{{ route('checkout.pod.form') }}" 
+   class="inline-flex items-center px-6 py-3 text-sm font-medium text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:ring-gray-400">
+    Pay on Delivery
+</a>
+
 
         </div>
 

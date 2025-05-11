@@ -94,9 +94,24 @@ $payload = [
         return back()->withErrors(['message' => 'Failed to initialize payment.']);
     }
 
-
-    public function payOnDelivery(Request $request, CartService $cartService)
+public function showPodForm()
 {
+    $user = Auth::user();
+    return view('checkout.pod', compact('user'));
+}
+
+
+public function payOnDelivery(Request $request, CartService $cartService)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email',
+        'address' => 'required|string',
+        'city' => 'required|string',
+        'state' => 'required|string',
+        'zip' => 'required|string',
+    ]);
+
     $cart = $cartService->getCart();
 
     if (empty($cart)) {
@@ -105,25 +120,37 @@ $payload = [
 
     $order = Order::create([
         'user_id'        => Auth::id(),
+        'name'           => $request->input('name'),
+        'email'          => $request->input('email'),
+        'address'        => $request->input('address'),
+        'city'           => $request->input('city'),
+        'state'          => $request->input('state'),
+        'zip'            => $request->input('zip'),
         'status'         => 'pending',
+        'payment_status' => 'unpaid',
         'payment_method' => 'pay_on_delivery',
         'total'          => collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']),
+        'placed_at'      => now(),
     ]);
 
     foreach ($cart as $productId => $item) {
+        $product = \App\Models\Product::find($productId);
+
         OrderItem::create([
             'order_id'   => $order->id,
             'product_id' => $productId,
+            'name'       => $product->name,
             'quantity'   => $item['quantity'],
             'price'      => $item['price'],
         ]);
     }
 
-    $cartService->clearCart(); // <-- use service to clear cart
+    $cartService->clearCart();
 
     return redirect()->route('orders.show', $order->id)
         ->with('success', 'Your order has been placed. Please prepare to pay on delivery.');
 }
+
  
     public function handleCallback(Request $request)
     {
