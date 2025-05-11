@@ -18,7 +18,6 @@
     <header class="w-full bg-white shadow-md dark:bg-gray-800">
         <div class="flex items-center justify-between p-4 mx-auto max-w-7xl">
             <h1 class="text-2xl font-bold">🚀 Fastcart</h1>
-
             <nav class="flex gap-4 text-sm">
                 @auth
                     <a href="{{ url('/dashboard') }}" class="hover:underline">Dashboard</a>
@@ -28,15 +27,10 @@
                         <a href="{{ route('register') }}" class="hover:underline">Register</a>
                     @endif
                 @endauth
-                
                 <a href="{{ route('cart.index') }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-green-300">
                     Cart
-                    @php
-                        $cart = session('cart', []);
-                        $cartCount = array_sum(array_column($cart, 'quantity'));
-                    @endphp
                     @if($cartCount > 0)
-                        <span class="absolute top-0 right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold leading-none text-white transform translate-x-2 -translate-y-2 bg-red-600 rounded-full">
+                        <span class="absolute top-0 right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white transform translate-x-2 -translate-y-2 bg-red-600 rounded-full">
                             {{ $cartCount }}
                         </span>
                     @endif
@@ -56,39 +50,82 @@
         </div>
     </section>
 
+    <img src="{{ asset('storage/products/untitled (3).gif') }}" class="object-cover w-full h-48" />
+
     <!-- Products Section -->
-    <main id="products" class="flex-1 p-6 mx-auto max-w-7xl">
-        <h2 class="mb-8 text-3xl font-semibold">Shop Our Products</h2>
+<main id="products" class="flex-1 p-6 mx-auto max-w-7xl">
+    <h2 class="mb-8 text-3xl font-semibold">Shop by Category</h2>
 
-        <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            @foreach($products as $product)
-                <div class="overflow-hidden transition bg-white rounded-lg shadow-md dark:bg-gray-800 hover:shadow-lg">
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="object-cover w-full h-48" />
-                    <div class="p-4">
-                        <h3 class="mb-2 text-lg font-semibold">{{ $product->name }}</h3>
-                        <p class="mb-4 text-sm text-gray-600 dark:text-gray-400">{{ $product->description }}</p>
-                        <div class="flex items-center justify-between">
-                            <span class="font-bold text-green-600">${{ number_format($product->price, 2) }}</span>
+    @foreach($categories as $category)
+        @if($category->products->isNotEmpty())
+            <section class="mb-12">
+                <h3 class="mb-4 text-2xl font-bold">{{ $category->name }}</h3>
 
-                            <!-- Add to Cart Form -->
-                            <form method="POST" action="{{ route('cart.add', $product->id) }}">
-                                @csrf
-                                <button type="submit" class="px-3 py-1 text-sm text-white bg-green-500 rounded hover:bg-green-600">
-                                    Add to Cart
-                                </button>
-                            </form>
-                            <!-- End Form -->
+                <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                    @foreach($category->products as $product)
+                        <div class="flex flex-col h-full overflow-hidden transition bg-white shadow rounded-xl dark:bg-gray-800 hover:shadow-lg">
+                            <a href="{{ route('products.show', $product) }}" class="block">
+                                <div class="w-full h-64 overflow-hidden rounded-t-xl">
+                                    <img src="{{ asset('storage/' . $product->image) }}"
+                                         alt="{{ $product->name }}"
+                                         class="object-cover w-full h-full" />
+                                </div>
+                            </a>
 
+                            <div class="flex flex-col justify-between flex-1 p-5">
+                                <div>
+                                    <h3 class="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+                                        {{ $product->name }}
+                                    </h3>
+                                    @if($product->reviews->count())
+                                        <div class="mb-2 text-yellow-500">
+                                            {!! str_repeat('⭐', round($product->average_rating)) !!}
+                                            <span class="ml-1 text-sm text-gray-600 dark:text-gray-400">
+                                                ({{ round($product->average_rating, 1) }}/5)
+                                            </span>
+                                        </div>
+                                    @else
+                                        <div class="mb-2 text-sm text-gray-500">
+                                            No ratings yet
+                                        </div>
+                                    @endif
+
+                                    <p class="mb-4 text-sm text-gray-600 dark:text-gray-400">
+                                        {{ \Illuminate\Support\Str::limit($product->description, 60) }}
+                                    </p>
+                                </div>
+
+                                <span class="mb-3 font-bold text-green-600">
+                                    N{{ number_format($product->price, 2) }}
+                                </span>
+                                
+                                <div class="flex justify-between gap-2">
+                                    <a href="{{ route('products.show', $product) }}"
+                                       class="flex-1 px-3 py-2 text-sm font-medium text-center text-white bg-green-500 rounded hover:bg-green-600">
+                                        View
+                                    </a>
+                                    <form method="POST" action="{{ route('cart.add', $product->id) }}" class="flex-1">
+                                        @csrf
+                                        <button type="submit"
+                                                class="w-full px-3 py-2 text-sm font-medium text-white bg-green-500 rounded hover:bg-green-600">
+                                            Add to Cart
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
-            @endforeach
-        </div>
-    </main>
+            </section>
+        @endif
+    @endforeach
+</main>
+
 
     <footer class="w-full p-4 mt-10 text-xs text-center text-gray-500">
         © {{ date('Y') }} Fastcart. All rights reserved.
     </footer>
 
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.89/build/spline-viewer.js"></script>
 </body>
 </html>

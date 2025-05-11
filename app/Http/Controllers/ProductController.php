@@ -2,35 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller; 
-
-
-
-
+use App\Models\OrderItem;
 
 class ProductController extends Controller
 {
-
     /**
-     * Display a listing of the resource (Product List).
+     * Display a listing of the resource.
      */
     public function index()
     {
-        $products = Product::latest()->paginate(10); // You can change 10 to any number
+        $products = Product::latest()->paginate(10);
+        
         return view('products.index', compact('products'));
     }
 
-       
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('products.create');
+        $categories = Category::all();
+        return view('products.create', compact('categories'));
     }
 
     /**
@@ -42,33 +39,53 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048', // updated here
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'category_id' => 'required|exists:categories,id',
         ]);
-    
+
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('products', 'public'); 
+            $path = $request->file('image')->store('products', 'public');
             $validated['image'] = $path;
         }
-    
+
         Product::create($validated);
-    
-        return redirect()->route('products.index')->with('success', 'Product created successfully.');
+
+        return redirect()->route('admin.products.index')->with('success', 'Product created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
-    {
-        return view('products.show', compact('product'));
+ 
+
+
+public function show(Product $product)
+{
+    $relatedProducts = Product::where('category_id', $product->category_id)
+        ->where('id', '!=', $product->id)
+        ->latest()
+        ->take(6)
+        ->get();
+
+    // Check if the user has purchased this product
+    $hasPurchased = false;
+
+   if (Auth::check()) {
+        $hasPurchased = OrderItem::whereHas('order', function ($query) {
+            $query->where('user_id', Auth::id());
+        })->where('product_id', $product->id)->exists();
     }
+
+    return view('products.show', compact('product', 'relatedProducts', 'hasPurchased'));
+}
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Product $product)
     {
-        return view('products.edit', compact('product'));
+        $categories = Category::all();
+        return view('products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -81,23 +98,21 @@ class ProductController extends Controller
             'description' => 'required|string',
             'price' => 'required|numeric',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp',
+            'category_id' => 'required|exists:categories,id',
         ]);
-    
-        // If there's a new image uploaded
+
         if ($request->hasFile('image')) {
-            // Optionally delete the old image
             if ($product->image) {
-                Storage::delete($product->image); // Assuming you store image paths
+                Storage::disk('public')->delete($product->image);
             }
-    
-            // Store new image
+
             $path = $request->file('image')->store('products', 'public');
             $validated['image'] = $path;
         }
-    
+
         $product->update($validated);
-    
-        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
+
+        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
     }
 
     /**
@@ -105,9 +120,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image);
+        }
+
         $product->delete();
 
-        return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
+        return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
     }
-    
 }

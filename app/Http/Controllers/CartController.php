@@ -88,21 +88,21 @@ class CartController extends Controller
         return redirect()->route('cart.index')->with('success', 'Cart updated successfully.');
     }
 
-    public function remove(Product $product)
-    {
-        if (Auth::check()) {
-            Cart::where('user_id', Auth::id())
-                ->where('product_id', $product->id)
-                ->delete();
-        } else {
-            $cart = session()->get('cart', []);
-
-            if (isset($cart[$product->id])) {
-                unset($cart[$product->id]);
-                session()->put('cart', $cart);
-            }
+    public function remove($id)
+{
+    if (Auth::check()) {
+        Cart::where('user_id', Auth::id())
+            ->where('product_id', $id)
+            ->delete();
+    } else {
+        $cart = session()->get('cart', []);
+        if (isset($cart[$id])) {
+            unset($cart[$id]);
+            session()->put('cart', $cart);
         }
-
-        return redirect()->route('cart.index')->with('success', 'Product removed successfully.');
     }
+
+    return redirect()->route('cart.index')->with('success', 'Product removed successfully.');
+}
+
 }

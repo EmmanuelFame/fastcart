@@ -9,9 +9,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use App\Models\Cart;
+use App\Models\Order;
 
 /**
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Cart[] $carts
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
+ * @property-read int|null $carts_count
+ * @mixin IdeHelperUser
  */
 class User extends Authenticatable
 {
@@ -52,11 +56,21 @@ class User extends Authenticatable
         ];
     }
 
+   /**
+ * Get the orders for the user.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\HasMany
+ */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
     /**
-     * Get the cart items for the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
+ * Get the cart items for the user.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\HasMany
+ */
     public function carts(): HasMany
     {
         return $this->hasMany(Cart::class);

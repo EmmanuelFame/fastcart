@@ -20,10 +20,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
         $this->call([
-            ProductSeeder::class, // ← Add this line!
+            ProductSeeder::class, // ← 
         ]);
         $this->call([
-            AdminUserSeeder::class, // ← Add this line!
+            AdminUserSeeder::class, // ← 
         ]);
+        $this->call([
+            CategorySeeder::class, // ← 
+        ]);
+        
     }
 }

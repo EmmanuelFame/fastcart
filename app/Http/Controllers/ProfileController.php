@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Order;
 
 class ProfileController extends Controller
 {
@@ -49,12 +50,25 @@ class ProfileController extends Controller
         $user = $request->user();
 
         Auth::logout();
-
         $user->delete();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    /**
+     * Display the authenticated user's orders.
+     */
+    public function orders(): View
+    {
+        $userId = Auth::id(); // more IDE friendly
+        $orders = Order::with('items.product')
+            ->where('user_id', $userId)
+            ->latest()
+            ->get();
+
+        return view('profile.orders', compact('orders'));
     }
 }

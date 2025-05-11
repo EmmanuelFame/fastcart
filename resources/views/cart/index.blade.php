@@ -4,7 +4,7 @@
 <div class="px-4 py-8 mx-auto max-w-7xl">
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-3xl font-bold">Shopping Cart</h1>
-        <a href="{{ route('products.index') }}" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-300">
+        <a href="{{ route('home') }}" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-300">
             Continue Shopping
         </a>
     </div>
@@ -37,11 +37,11 @@
                         @endphp
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 font-medium text-gray-900">{{ $item['name'] }}</td>
-                            <td class="px-6 py-4">${{ number_format($item['price'], 2) }}</td>
+                            <td class="px-6 py-4">N{{ number_format($item['price'], 2) }}</td>
                             <td class="px-6 py-4">{{ $item['quantity'] }}</td>
-                            <td class="px-6 py-4">${{ number_format($subtotal, 2) }}</td>
+                            <td class="px-6 py-4">N{{ number_format($subtotal, 2) }}</td>
                             <td class="flex items-center justify-center px-6 py-4 space-x-2">
-                                <form action="{{ route('cart.remove', $product->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Remove this item?')">
+                                <form action="{{ route('cart.remove', $id) }}" method="POST"  style="display: inline;" onsubmit="return confirm('Remove this item?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="inline-flex items-center px-3 py-2 text-xs font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:ring-red-300">
@@ -62,7 +62,7 @@
         @endguest 
 
         <div class="flex items-center justify-between mt-6">
-            <div class="text-xl font-bold">Total: ${{ number_format($total, 2) }}</div>
+            <div class="text-xl font-bold">Total: N{{ number_format($total, 2) }}</div>
             <a href="{{ route('checkout.index') }}" class="inline-flex items-center px-6 py-3 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-green-300">
                 Proceed to Checkout
             </a>
@@ -71,7 +71,7 @@
     @else
         <div class="p-6 text-center text-gray-500 bg-white rounded-lg shadow">
             Your cart is empty. <br>
-            <a href="{{ route('products.index') }}" class="inline-block mt-4 text-blue-600 hover:underline">
+            <a href="{{ route('admin.products.index') }}" class="inline-block mt-4 text-blue-600 hover:underline">
                 Browse Products
             </a>
         </div>

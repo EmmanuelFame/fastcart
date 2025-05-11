@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Product;
 
+/**
+ * @mixin IdeHelperCart
+ */
 class Cart extends Model
 {
     use HasFactory;

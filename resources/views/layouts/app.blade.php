@@ -10,12 +10,22 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <!-- In layouts/app.blade.php inside <head> -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+
+
 
     <!-- Flowbite CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
 
     <!-- App CSS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+
+
+
+
 </head>
 <body class="font-sans antialiased bg-gray-100">
     <div class="min-h-screen">
@@ -41,5 +51,9 @@
 
     <!-- Flowbite JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <!-- BODY END -->
+    <!-- At the end before </body> -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
 </body>
 </html>
