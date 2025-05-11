@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\OrderStatusController;
 use App\Models\Product;
@@ -63,7 +64,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     ->name('checkout.pod.form')->middleware('auth');
     Route::post('/checkout/pod', [App\Http\Controllers\CheckoutController::class, 'payOnDelivery'])
     ->name('checkout.pod')->middleware('auth');
-
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
     //review
     Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])->name('reviews.store')->middleware('auth');
