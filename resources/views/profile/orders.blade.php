@@ -26,7 +26,7 @@
             </p>
 
             <p class="mb-1 text-sm text-gray-600">
-                Payment: {{ ucfirst($order->payment_method ?? 'N/A') }} - {{ ucfirst($order->payment_status ?? 'N/A') }}
+                Payment: {{ ucfirst($order->payment_method ?? 'N/A') }} - {{ ucfirst($order->status ?? 'N/A') }}
             </p>
 
             <p class="mb-4 text-sm text-gray-600">
