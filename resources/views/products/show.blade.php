@@ -77,7 +77,7 @@
     </div>
 
     @if ($hasPurchased)
-<form method="POST" action="{{ route('reviews.store', $product->id) }}">
+<form method="POST" action="{{ route('reviews.store', ['product' => $product->id]) }}">
     @csrf
     <label>Rating:</label>
     <select name="rating" required>
