@@ -74,7 +74,7 @@ class OrderStatusController extends Controller
         $order->save();
 
         return redirect()
-            ->route('admin.orders.status.show', $order->id)
+            ->route('admin.orders.status', $order->id)
             ->with('success', 'Order status updated.');
     }
 }
