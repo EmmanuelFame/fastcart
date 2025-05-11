@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\OrderStatusController;
 use App\Models\Product;
 
@@ -71,8 +72,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 */
 // Admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::resource('products', ProductController::class);
     
+    Route::get('/orders', [OrderStatusController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}/status', [OrderStatusController::class, 'show'])->name('orders.status');
     Route::post('/orders/{order}/status', [OrderStatusController::class, 'update'])->name('orders.status.update');
 });

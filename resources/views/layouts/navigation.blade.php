@@ -21,10 +21,13 @@
                             {{ __('My Orders') }}
                         </x-nav-link>
 
-                        @if(Auth::user()->is_admin ?? false)
-                            <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">
+                        @if(Auth::user()->role === 'admin' ?? false)
+                            <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('products.*')">
                                 {{ __('Products') }}
                             </x-nav-link>
+                        @endif
+                        @if(auth()->user()->role === 'admin')
+                            <a href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
                         @endif
                     @endauth
                 </div>
@@ -94,8 +97,8 @@
                     {{ __('My Orders') }}
                 </x-responsive-nav-link>
 
-                @if(Auth::user()->is_admin ?? false)
-                    <x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">
+                @if(Auth::user()->role === 'admin' ?? false)
+                    <x-responsive-nav-link :href="route('admin.products.index')" :active="request()->routeIs('products.*')">
                         {{ __('Products') }}
                     </x-responsive-nav-link>
                 @endif
@@ -114,6 +117,12 @@
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
+                @if(auth()->user()->role === 'admin')
+                    <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                        {{ __('Admin Dashboard') }}
+                    </x-responsive-nav-link>
+                @endif
+
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
