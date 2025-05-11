@@ -59,6 +59,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/failed', [CheckoutController::class, 'failed'])->name('checkout.failed');
     Route::get('/payment/callback', [CheckoutController::class, 'handleCallback'])->name('payment.callback');
+    Route::post('/checkout/pod', [App\Http\Controllers\CheckoutController::class, 'payOnDelivery'])->name('checkout.pod')->middleware('auth');
+
 
     //review
     Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])->name('reviews.store')->middleware('auth');

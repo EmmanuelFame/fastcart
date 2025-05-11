@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use App\Services\CartService;
 use App\Models\Order;
+use App\Models\OrderItem;
 
 class CheckoutController extends Controller
 {
@@ -93,6 +95,36 @@ $payload = [
     }
 
 
+    public function payOnDelivery(Request $request, CartService $cartService)
+{
+    $cart = $cartService->getCart();
+
+    if (empty($cart)) {
+        return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
+    }
+
+    $order = Order::create([
+        'user_id'        => Auth::id(),
+        'status'         => 'pending',
+        'payment_method' => 'pay_on_delivery',
+        'total'          => collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']),
+    ]);
+
+    foreach ($cart as $productId => $item) {
+        OrderItem::create([
+            'order_id'   => $order->id,
+            'product_id' => $productId,
+            'quantity'   => $item['quantity'],
+            'price'      => $item['price'],
+        ]);
+    }
+
+    $cartService->clearCart(); // <-- use service to clear cart
+
+    return redirect()->route('orders.show', $order->id)
+        ->with('success', 'Your order has been placed. Please prepare to pay on delivery.');
+}
+ 
     public function handleCallback(Request $request)
     {
         $status = $request->query('status');

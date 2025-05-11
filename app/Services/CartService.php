@@ -30,4 +30,12 @@ class CartService
 
         return $cart;
     }
+    public function clearCart()
+{
+    if (Auth::check()) {
+        Auth::user()->carts()->delete();
+    } else {
+        session()->forget('cart');
+    }
+}
 }
