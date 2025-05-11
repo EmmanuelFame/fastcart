@@ -76,22 +76,36 @@
         </div>
     </div>
 
-    @if ($hasPurchased)
-<form method="POST" action="{{ route('reviews.store', ['product' => $product->id]) }}">
-    @csrf
-    <label>Rating:</label>
-    <select name="rating" required>
-        @for ($i = 1; $i <= 5; $i++)
-            <option value="{{ $i }}">{{ $i }}</option>
-        @endfor
-    </select>
+ @if ($hasPurchased)
+    <form method="POST" action="{{ route('reviews.store', ['product' => $product->id]) }}" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-6">
+        @csrf
 
-    <label>Comment:</label>
-    <textarea name="comment" rows="3"></textarea>
+        <h3 class="text-lg font-semibold mb-4">Leave a Review</h3>
 
-    <button type="submit">Submit Review</button>
-</form>
+        <div class="mb-4">
+            <label for="rating" class="block text-gray-700 text-sm font-bold mb-2">Rating</label>
+            <select name="rating" id="rating" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                @for ($i = 1; $i <= 5; $i++)
+                    <option value="{{ $i }}" {{ isset($review) && $review->rating == $i ? 'selected' : '' }}>
+                        {{ $i }} {{ str_repeat('⭐', $i) }}
+                    </option>
+                @endfor
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="comment" class="block text-gray-700 text-sm font-bold mb-2">Comment</label>
+            <textarea name="comment" id="comment" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{ $review->comment ?? '' }}</textarea>
+        </div>
+
+        <div class="flex items-center justify-between">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                {{ $review ? 'Update Review' : 'Submit Review' }}
+            </button>
+        </div>
+    </form>
 @endif
+
 
 
 <!-- Related Products Carousel -->
