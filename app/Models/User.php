@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Cart;
 use App\Models\Order;
@@ -17,7 +18,7 @@ use App\Models\Order;
  * @property-read int|null $carts_count
  * @mixin IdeHelperUser
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
