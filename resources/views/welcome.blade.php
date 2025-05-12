@@ -121,10 +121,19 @@
     @endforeach
 </main>
 
+<footer class="bg-gray-800 mt-16 py-8 text-sm text-gray-100">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p>&copy; {{ now()->year }} Mercatia. All rights reserved.</p>
 
-    <footer class="w-full p-4 mt-10 text-xs text-center text-gray-500">
-        © {{ date('Y') }} Fastcart. All rights reserved.
-    </footer>
+        <div class="flex gap-4">
+            <a href="{{ route('terms') }}" class="hover:text-gray-900 transition">Terms & Conditions</a>
+            <a href="{{ route('privacy') }}" class="hover:text-gray-900 transition">Privacy Policy</a>
+            <a href="{{ url('/contact') }}" class="hover:text-gray-900 transition">Contact</a>
+        </div>
+    </div>
+</footer>
+
+   
 
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.89/build/spline-viewer.js"></script>
 </body>
