@@ -3,8 +3,10 @@
 @section('content')
 <div class="max-w-3xl px-4 py-8 mx-auto">
     <h1 class="mb-6 text-3xl font-bold">Add New Product</h1>
+    <h2>Images size should not exceed 2MB</h2>
 
     @include('partials.messages')
+
 
     <form method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data" class="space-y-6">
         @csrf
