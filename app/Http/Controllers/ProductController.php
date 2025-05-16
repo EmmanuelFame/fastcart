@@ -106,9 +106,9 @@ public function show(Product $product)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|numeric',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0|max:9999999999.99',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:20480',
             'category_id' => 'required|exists:categories,id',
         ]);
 
