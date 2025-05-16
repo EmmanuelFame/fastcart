@@ -33,8 +33,12 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    
     public function store(Request $request)
+    
     {
+        \Log::info('Form data received:', request()->all());
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
