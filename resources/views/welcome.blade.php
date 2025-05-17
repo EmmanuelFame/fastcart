@@ -14,42 +14,42 @@
 </head>
 
 <style>
-    .loader-container{
+    .loader-container {
         position: fixed;
         inset: 0;
         z-index: 999;
-        background-color: #0c0503;
+        background-color: #0c0603;
         display: grid;
         place-content: center;
         transition: opacity .4s ease-in-out, visibility .4s ease-in-out;
     }
 
-    .loader{
+    .loader {
         width: 4rem;
         height: 4rem;
-        border: 4rem solid #3b82f6;
+        border: .4rem solid #3b82f6;
         border-left-color: transparent;
         border-right-color: transparent;
         border-radius: 50%;
         animation: .8s ease infinite alternate spinner;
     }
 
-    .loader-container.hidden{
+    .loader-container.hidden {
         opacity: 0;
         visibility: hidden;
     }
-    #page-content{
+    #page-content {
         opacity: 0;
         transform: translate3d(0, -1rem, 0);
         transition: opacity .6s ease-in-out, transform .6s ease-in-out;
     }
 
-    #page-content.visible{
+    #page-content.visible {
         opacity: 1;
         transform: translate3d(0, 0, 0);
     }
 
-    @keyframes spinner{
+    @keyframes spinner {
         /* default values
          from{
             transform: rotate(0deg) scale(1);
