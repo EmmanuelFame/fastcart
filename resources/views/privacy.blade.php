@@ -8,7 +8,10 @@
 
     <p class="mb-4">Effective Date: {{ now()->format('F d, Y') }}</p>
 
-    <p class="mb-4">At Mercatia, your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information.</p>
+    <p class="mb-4">
+        At <strong>Fastcart</strong>, owned and operated by <strong>Milestar Trade and Export Limited</strong>, your privacy is important to us. 
+        This Privacy Policy explains how we collect, use, and protect your information.
+    </p>
 
     <h2 class="text-xl font-semibold mt-6 mb-2">1. Information We Collect</h2>
     <ul class="list-disc pl-6 mb-4">
@@ -30,7 +33,7 @@
     <p class="mb-4">We use industry-standard security to protect your information.</p>
 
     <h2 class="text-xl font-semibold mt-6 mb-2">6. Your Rights</h2>
-    <p class="mb-4">You may request to access, correct, or delete your data by contacting us at hello@mercatia.store.</p>
+    <p class="mb-4">You may request to access, correct, or delete your data by contacting us at milestartrade@gmail.com.</p>
 
     <h2 class="text-xl font-semibold mt-6 mb-2">7. Children’s Privacy</h2>
     <p class="mb-4">We do not knowingly collect information from children under 18.</p>

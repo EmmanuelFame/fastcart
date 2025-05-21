@@ -8,10 +8,13 @@
 
     <p class="mb-4">Effective Date: {{ now()->format('F d, Y') }}</p>
 
-    <p class="mb-4">Welcome to <strong>Mercatia</strong> (www.mercatia.store). These Terms and Conditions ("Terms") govern your access to and use of our website and services. By using this website, you agree to comply with and be bound by these Terms.</p>
+    <p class="mb-4">
+        Welcome to <strong>Fastcart</strong> (www.fastcart.com). Fastcart is owned and operated by <strong>Milestar Trade and Export Limited</strong>.
+        These Terms and Conditions ("Terms") govern your access to and use of our website and services. By using this website, you agree to comply with and be bound by these Terms.
+    </p>
 
     <h2 class="text-xl font-semibold mt-6 mb-2">1. General Information</h2>
-    <p class="mb-4">Mercatia is an online marketplace that connects customers with vendors selling fashion and retail products.</p>
+    <p class="mb-4">Fastcart is an online marketplace that connects customers with vendors selling fashion and retail products.</p>
 
     <h2 class="text-xl font-semibold mt-6 mb-2">2. Use of the Website</h2>
     <ul class="list-disc pl-6 mb-4">
@@ -33,10 +36,10 @@
     <p class="mb-4">You must not upload malicious code or engage in fraudulent activities.</p>
 
     <h2 class="text-xl font-semibold mt-6 mb-2">7. Intellectual Property</h2>
-    <p class="mb-4">All content belongs to Mercatia or its vendors and is protected by copyright laws.</p>
+    <p class="mb-4">All content belongs to Fastcart or its vendors and is protected by copyright laws.</p>
 
     <h2 class="text-xl font-semibold mt-6 mb-2">8. Limitation of Liability</h2>
-    <p class="mb-4">Mercatia is not liable for indirect or incidental damages from site use.</p>
+    <p class="mb-4">Fastcart is not liable for indirect or incidental damages from site use.</p>
 
     <h2 class="text-xl font-semibold mt-6 mb-2">9. Privacy</h2>
     <p class="mb-4">See our <a href="{{ url('/privacy') }}" class="text-blue-600 underline">Privacy Policy</a> for more details.</p>
