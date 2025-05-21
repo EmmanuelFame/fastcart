@@ -14,83 +14,85 @@
 </head>
 
 <style>
-
     html {
-			font-size: 16px;
-			font-family: 'Figtree', sans-serif;
-			line-height: 1.5;
-		}
+        font-size: 16px;
+        font-family: 'Figtree', sans-serif;
+        line-height: 1.5;
+    }
 
-		img {
-			display: block;
-		}
+    img {
+        display: block;
+    }
 
-		#hero {
-			height: 60vh;
-			color: white;
-			position: relative;
-		}
+    #hero {
+        height: 60vh;
+        position: relative;
+        color: white;
+        overflow: hidden;
+    }
 
-		#hero::before {
-			content: '';
-			position: absolute;
-			inset: 0;
-			background: rgba(15, 21, 37, .8);
-			z-index: -1;
-		}
+    #hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(15, 21, 37, 0.7);
+        z-index: 1;
+    }
 
-		.container {
-			width: 80%;
-			margin: 0 auto;
-			height: 100%;
-			padding: 4rem 0;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			align-items: flex-start;
-		}
+    #hero video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+    }
 
-		header {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			width: 100%;
-		}
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        padding: 4rem 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
 
-		nav ul {
-			list-style: none;
-			padding: 0;
-			margin: 0;
-			display: flex;
-			gap: 3rem;
-		}
+    header {
+        width: 100%;
+        background: transparent;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+    }
 
-		nav ul a {
-			text-decoration: none;
-			color: white;
-		}
+    nav ul {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+        margin: 0;
+        padding: 0;
+    }
 
-		h1 {
-			font-size: 4.875rem;
-			font-weight: 700;
-			max-width: 80%;
-			line-height: 1.2;
-		}
+    nav a {
+        color: white;
+        text-decoration: none;
+    }
 
-		h1 span {
-			color: #FFBF1A;
-		}
+    h1 {
+        font-size: 4.875rem;
+        font-weight: 700;
+        max-width: 80%;
+        line-height: 1.2;
+    }
 
-		/* Air */
-		video{
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			z-index: -2;
-		}
+    h1 span {
+        color: #FFBF1A;
+    }
 
     .loader-container {
         position: fixed;
@@ -99,27 +101,28 @@
         background-color: #0c0603;
         display: grid;
         place-content: center;
-        transition: opacity .4s ease-in-out, visibility .4s ease-in-out;
+        transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
     }
 
     .loader {
         width: 4rem;
         height: 4rem;
-        border: .4rem solid #3b82f6;
+        border: 0.4rem solid #3b82f6;
         border-left-color: transparent;
         border-right-color: transparent;
         border-radius: 50%;
-        animation: .8s ease infinite alternate spinner;
+        animation: 0.8s ease infinite alternate spinner;
     }
 
     .loader-container.hidden {
         opacity: 0;
         visibility: hidden;
     }
+
     #page-content {
         opacity: 0;
         transform: translate3d(0, -1rem, 0);
-        transition: opacity .6s ease-in-out, transform .6s ease-in-out;
+        transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
     }
 
     #page-content.visible {
@@ -128,16 +131,12 @@
     }
 
     @keyframes spinner {
-        /* default values
-         from{
-            transform: rotate(0deg) scale(1);
-        } */
-        from{
+        from {
             transform: rotate(1turn) scale(1.2);
         }
     }
-
 </style>
+
 
 <body class="flex flex-col min-h-screen text-gray-900 bg-gray-50 dark:bg-gray-900 dark:text-gray-100">
 
@@ -147,53 +146,56 @@
 
     <div id="page-content">
 
+        <!-- Hero Section -->
+        <section id="hero">
 
-    <!-- Hero Section -->
-    <section id="hero" class="py-20 text-white bg-gradient-to-r from-green-400 to-blue-500">
+            <!-- Background Video -->
+            <video muted loop autoplay playsinline>
+                <source src="public/videos/Video-2@C.webm" type="video/webm">
+            </video>
 
-         <div class="container">
+            <!-- Content Layer -->
+            <div class="hero-content">
 
-            <!-- Header -->
-    <header class="w-full bg-white shadow-md dark:bg-gray-800">
-        <div class="flex items-center justify-between p-4 mx-auto max-w-7xl">
-            <h1 class="text-2xl font-bold">🚀 Fastcart</h1>
-            <nav class="flex gap-4 text-sm">
-                @auth
-                    <a href="{{ url('/dashboard') }}" class="hover:underline">Dashboard</a>
-                @else
-                    <a href="{{ route('login') }}" class="hover:underline">Log in</a>
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="hover:underline">Register</a>
-                    @endif
-                @endauth
-                <a href="{{ route('cart.index') }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-green-300">
-                    Cart
-                    @if($cartCount > 0)
-                        <span class="absolute top-0 right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white transform translate-x-2 -translate-y-2 bg-red-600 rounded-full">
-                            {{ $cartCount }}
-                        </span>
-                    @endif
-                </a>
-            </nav>
-        </div>
-    </header>
+                <!-- Navigation / Header -->
+                <header>
+                    <h1 class="text-2xl font-bold">🚀 Fastcart</h1>
+                    <nav>
+                        <ul>
+                            @auth
+                                <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+                            @else
+                                <li><a href="{{ route('login') }}">Log in</a></li>
+                                @if (Route::has('register'))
+                                    <li><a href="{{ route('register') }}">Register</a></li>
+                                @endif
+                            @endauth
+                            <li>
+                                <a href="{{ route('cart.index') }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-green-300">
+                                    Cart
+                                    @if($cartCount > 0)
+                                        <span class="absolute top-0 right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white transform translate-x-2 -translate-y-2 bg-red-600 rounded-full">
+                                            {{ $cartCount }}
+                                        </span>
+                                    @endif
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
 
-    <video muted loop autoplay>
-				<!-- <source src="videos/video-2@c.mp4" type="video/mp4"> -->
-				<source src="public/videos/Video-2@C.webm" type="video/webm">
-			 </video>
+                <!-- Hero Text -->
+                <div class="px-6 mx-auto text-center max-w-7xl mt-auto mb-10">
+                    <h2 class="mb-4 text-4xl font-bold">Welcome to Fastcart</h2>
+                    <h3 class="mb-2">A product of Milestar Trade and Export Limited</h3>
+                    <p class="mb-6 text-lg">Discover amazing products at unbeatable prices!</p>
+                    <a href="#products" class="px-6 py-3 font-semibold text-green-600 transition bg-white rounded-full hover:bg-gray-100">
+                        Shop Now
+                    </a>
+                </div>
 
-        <div class="px-6 mx-auto text-center max-w-7xl">
-            <h2 class="mb-4 text-4xl font-bold">Welcome to Fastcart</h2>
-            <h3>A product of Milestar Trade and Export Limited</h3>
-            <p class="mb-6 text-lg">Discover amazing products at unbeatable prices!</p>
-            <a href="#products" class="px-6 py-3 font-semibold text-green-600 transition bg-white rounded-full hover:bg-gray-100">
-                Shop Now
-            </a>
-        </div>
-
-         </div>
-    </section>
+            </div>
+        </section>
 
     <img src="{{ asset('storage/products/untitled (3).gif') }}" class="object-cover w-full h-48" />
 
