@@ -185,14 +185,18 @@
                 </header>
 
                 <!-- Hero Text -->
-                <div class="px-6 mx-auto text-center max-w-7xl mt-auto mb-10">
-                    <h3 class="mb-4 text-4xl font-bold">Welcome to Fastcart</h3>
-                    <h2 class="mb-4 text-4xl font-bold">A Milestar Trade and Export Limited Project</h2>
-                    <p class="mb-6 text-lg">Discover amazing products at unbeatable prices!</p>
-                    <a href="#products" class="px-6 py-3 font-semibold text-green-600 transition bg-white rounded-full hover:bg-gray-100">
-                        Shop Now
-                    </a>
-                </div>
+               <div class="px-6 mx-auto text-center max-w-7xl mt-auto mb-10">
+    <h3 class="mb-4 text-4xl font-bold">Welcome to Fastcart</h3>
+    <h2 class="mb-4 text-4xl font-bold">A Milestar Trade and Export Limited Project</h2>
+    <p class="mb-6 text-lg">Discover amazing products at unbeatable prices!</p>
+    <a href="#products" class="px-6 py-3 font-semibold text-green-600 transition bg-white rounded-full hover:bg-gray-100">
+        Shop Now
+    </a>
+    <p class="mt-4 text-sm text-gray-500">
+        *All items displayed are for demonstration purposes only and are not available for purchase.*
+    </p>
+</div>
+
 
             </div>
         </section>
