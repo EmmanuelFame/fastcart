@@ -15,21 +15,38 @@
 
 <style>
     #hero {
-        min-height: 100vh;
         position: relative;
-        color: white;
+        min-height: 100vh;
         overflow: hidden;
+        color: white;
+    }
+
+    #hero video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+    }
+
+    #hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(15, 21, 37, 0.7); /* dark overlay */
+        z-index: 1;
     }
 
     .hero-content {
         position: relative;
-        z-index: 2;
-        width: 100%;
-        height: 100%;
+        z-index: 10;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center; /* Center horizontally */
+        align-items: center;
+        height: 100%;
         padding: 0 1rem;
         text-align: center;
     }
@@ -39,8 +56,8 @@
         top: 0;
         left: 0;
         width: 100%;
-        z-index: 30;
-        background: rgba(0, 0, 0, 0.6);
+        z-index: 20;
+        background: rgba(0, 0, 0, 0.6); /* semi-transparent bg */
     }
 </style>
 
