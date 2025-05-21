@@ -157,32 +157,49 @@
             <!-- Content Layer -->
             <div class="hero-content">
 
-                <!-- Navigation / Header -->
-                <header>
-                    <h1 class="text-2xl font-bold">Fastcart</h1>
-                    <nav>
-                        <ul>
-                            @auth
-                                <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
-                            @else
-                                <li><a href="{{ route('login') }}">Log in</a></li>
-                                @if (Route::has('register'))
-                                    <li><a href="{{ route('register') }}">Register</a></li>
-                                @endif
-                            @endauth
-                            <li>
-                                <a href="{{ route('cart.index') }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-green-300">
-                                    Cart
-                                    @if($cartCount > 0)
-                                        <span class="absolute top-0 right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white transform translate-x-2 -translate-y-2 bg-red-600 rounded-full">
-                                            {{ $cartCount }}
-                                        </span>
-                                    @endif
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </header>
+               
+               <!-- Responsive Header -->
+<header class="w-full text-white bg-black bg-opacity-50">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="/" class="text-xl font-bold sm:text-2xl whitespace-nowrap">Fastcart</a>
+        
+        <!-- Mobile toggle button -->
+        <button data-collapse-toggle="navbar-default" type="button" 
+                class="inline-flex items-center p-2 ml-3 text-sm text-white rounded-lg md:hidden hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600" 
+                aria-controls="navbar-default" aria-expanded="false">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" 
+                 xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+
+        <!-- Nav Links -->
+        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+            <ul class="flex flex-col mt-4 font-medium md:flex-row md:space-x-6 md:mt-0 text-sm sm:text-base">
+                @auth
+                    <li><a href="{{ url('/dashboard') }}" class="block py-2 pl-3 pr-4 hover:underline">Dashboard</a></li>
+                @else
+                    <li><a href="{{ route('login') }}" class="block py-2 pl-3 pr-4 hover:underline">Log in</a></li>
+                    @if (Route::has('register'))
+                        <li><a href="{{ route('register') }}" class="block py-2 pl-3 pr-4 hover:underline">Register</a></li>
+                    @endif
+                @endauth
+                <li>
+                    <a href="{{ route('cart.index') }}" 
+                       class="relative inline-flex items-center px-3 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-300 text-xs sm:text-sm">
+                        Cart
+                        @if($cartCount > 0)
+                            <span class="absolute top-0 right-0 inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 text-[10px] sm:text-xs font-bold text-white transform translate-x-2 -translate-y-2 bg-red-600 rounded-full">
+                                {{ $cartCount }}
+                            </span>
+                        @endif
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
 
                 <!-- Hero Text -->
                <div class="px-6 mx-auto text-center max-w-7xl mt-auto mb-10">
@@ -285,6 +302,16 @@
 </footer>
 
    
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleBtn = document.querySelector('[data-collapse-toggle]');
+        const navMenu = document.getElementById(toggleBtn.getAttribute('data-collapse-toggle'));
+
+        toggleBtn.addEventListener('click', function () {
+            navMenu.classList.toggle('hidden');
+        });
+    });
+</script>
 
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.89/build/spline-viewer.js"></script>
     </div>
