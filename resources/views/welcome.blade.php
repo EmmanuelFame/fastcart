@@ -151,7 +151,7 @@
 
             <!-- Background Video -->
             <video muted loop autoplay playsinline>
-                <source src="public/videos/Video-2@C.webm" type="video/webm">
+                <source src="{{ asset('public/videos/Video-2@C.webm') }}" type="video/webm">
             </video>
 
             <!-- Content Layer -->
@@ -186,8 +186,8 @@
 
                 <!-- Hero Text -->
                 <div class="px-6 mx-auto text-center max-w-7xl mt-auto mb-10">
-                    <h2 class="mb-4 text-4xl font-bold">Welcome to Fastcart</h2>
-                    <h3 class="mb-2">A product of Milestar Trade and Export Limited</h3>
+                    <h3 class="mb-4 text-4xl font-bold">Welcome to Fastcart</h3>
+                    <h2 class="mb-2">A product of Milestar Trade and Export Limited</h2>
                     <p class="mb-6 text-lg">Discover amazing products at unbeatable prices!</p>
                     <a href="#products" class="px-6 py-3 font-semibold text-green-600 transition bg-white rounded-full hover:bg-gray-100">
                         Shop Now
