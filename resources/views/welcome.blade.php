@@ -16,7 +16,7 @@
 <style>
     #hero {
         position: relative;
-        min-height: 100vh;
+        min-height: 80vh;
         overflow: hidden;
         color: white;
     }
@@ -59,6 +59,46 @@
         z-index: 20;
         background: rgba(0, 0, 0, 0.6); /* semi-transparent bg */
     }
+      .loader-container {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background-color: #0c0603;
+            display: grid;
+            place-content: center;
+            transition: opacity .4s ease-in-out, visibility .4s ease-in-out;
+        }
+
+        .loader {
+            width: 4rem;
+            height: 4rem;
+            border: .4rem solid #3b82f6;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: spinner .8s ease infinite alternate;
+        }
+
+        @keyframes spinner {
+            from { transform: rotate(1turn) scale(1.2); }
+        }
+
+        .loader-container.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #page-content {
+            opacity: 0;
+            transform: translateY(-1rem);
+            transition: opacity .6s ease-in-out, transform .6s ease-in-out;
+        }
+
+        #page-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
 </style>
 
 
