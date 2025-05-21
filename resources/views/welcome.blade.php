@@ -14,39 +14,11 @@
 </head>
 
 <style>
-    html {
-        font-size: 16px;
-        font-family: 'Figtree', sans-serif;
-        line-height: 1.5;
-    }
-
-    img {
-        display: block;
-    }
-
     #hero {
-        height: 60vh;
+        min-height: 100vh;
         position: relative;
         color: white;
         overflow: hidden;
-    }
-
-    #hero::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: rgba(15, 21, 37, 0.7);
-        z-index: 1;
-    }
-
-    #hero video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: 0;
     }
 
     .hero-content {
@@ -54,88 +26,24 @@
         z-index: 2;
         width: 100%;
         height: 100%;
-        padding: 4rem 0;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        align-items: flex-start;
+        justify-content: center;
+        align-items: center; /* Center horizontally */
+        padding: 0 1rem;
+        text-align: center;
     }
 
     header {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        background: transparent;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 2rem;
-    }
-
-    nav ul {
-        list-style: none;
-        display: flex;
-        gap: 2rem;
-        margin: 0;
-        padding: 0;
-    }
-
-    nav a {
-        color: white;
-        text-decoration: none;
-    }
-
-    h1 {
-        font-size: 4.875rem;
-        font-weight: 700;
-        max-width: 80%;
-        line-height: 1.2;
-    }
-
-    h1 span {
-        color: #FFBF1A;
-    }
-
-    .loader-container {
-        position: fixed;
-        inset: 0;
-        z-index: 999;
-        background-color: #0c0603;
-        display: grid;
-        place-content: center;
-        transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
-    }
-
-    .loader {
-        width: 4rem;
-        height: 4rem;
-        border: 0.4rem solid #3b82f6;
-        border-left-color: transparent;
-        border-right-color: transparent;
-        border-radius: 50%;
-        animation: 0.8s ease infinite alternate spinner;
-    }
-
-    .loader-container.hidden {
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    #page-content {
-        opacity: 0;
-        transform: translate3d(0, -1rem, 0);
-        transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
-    }
-
-    #page-content.visible {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
-
-    @keyframes spinner {
-        from {
-            transform: rotate(1turn) scale(1.2);
-        }
+        z-index: 30;
+        background: rgba(0, 0, 0, 0.6);
     }
 </style>
+
 
 
 <body class="flex flex-col min-h-screen text-gray-900 bg-gray-50 dark:bg-gray-900 dark:text-gray-100">
@@ -147,76 +55,75 @@
     <div id="page-content">
 
         <!-- Hero Section -->
-        <section id="hero">
+<section id="hero">
+    <!-- Background Video -->
+    <video muted loop autoplay playsinline>
+        <source src="{{ asset('videos/Video-2@C.webm') }}" type="video/webm">
+    </video>
 
-            <!-- Background Video -->
-            <video muted loop autoplay playsinline>
-                <source src="{{ asset('videos/Video-2@C.webm') }}" type="video/webm">
-            </video>
+    <!-- Content Layer -->
+    <div class="hero-content">
 
-            <!-- Content Layer -->
-            <div class="hero-content">
+        <!-- Fixed Header -->
+        <header>
+            <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+                <a href="/" class="text-xl font-bold sm:text-2xl whitespace-nowrap">Fastcart</a>
 
-               
-               <!-- Responsive Header -->
-<header class="w-full text-white bg-black bg-opacity-50">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="/" class="text-xl font-bold sm:text-2xl whitespace-nowrap">Fastcart</a>
-        
-        <!-- Mobile toggle button -->
-        <button data-collapse-toggle="navbar-default" type="button" 
-                class="inline-flex items-center p-2 ml-3 text-sm text-white rounded-lg md:hidden hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600" 
-                aria-controls="navbar-default" aria-expanded="false">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" 
-                 xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                      d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-        </button>
+                <!-- Mobile toggle button -->
+                <button data-collapse-toggle="navbar-default" type="button"
+                        class="inline-flex items-center p-2 ml-3 text-sm text-white rounded-lg md:hidden hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
+                        aria-controls="navbar-default" aria-expanded="false">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
 
-        <!-- Nav Links -->
-        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul class="flex flex-col mt-4 font-medium md:flex-row md:space-x-6 md:mt-0 text-sm sm:text-base">
-                @auth
-                    <li><a href="{{ url('/dashboard') }}" class="block py-2 pl-3 pr-4 hover:underline">Dashboard</a></li>
-                @else
-                    <li><a href="{{ route('login') }}" class="block py-2 pl-3 pr-4 hover:underline">Log in</a></li>
-                    @if (Route::has('register'))
-                        <li><a href="{{ route('register') }}" class="block py-2 pl-3 pr-4 hover:underline">Register</a></li>
-                    @endif
-                @endauth
-                <li>
-                    <a href="{{ route('cart.index') }}" 
-                       class="relative inline-flex items-center px-3 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-300 text-xs sm:text-sm">
-                        Cart
-                        @if($cartCount > 0)
-                            <span class="absolute top-0 right-0 inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 text-[10px] sm:text-xs font-bold text-white transform translate-x-2 -translate-y-2 bg-red-600 rounded-full">
-                                {{ $cartCount }}
-                            </span>
-                        @endif
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</header>
-
-                <!-- Hero Text -->
-               <div class="px-6 mx-auto text-center max-w-7xl mt-auto mb-10">
-    <h3 class="mb-4 text-4xl font-bold">Welcome to Fastcart</h3>
-    <h2 class="mb-4 text-4xl font-bold">A Milestar Trade and Export Limited Project</h2>
-    <p class="mb-6 text-lg">Discover amazing products at unbeatable prices!</p>
-    <a href="#products" class="px-6 py-3 font-semibold text-green-600 transition bg-white rounded-full hover:bg-gray-100">
-        Shop Now
-    </a>
-    <p class="mt-4 text-sm text-gray-500">
-        *All items displayed are for demonstration purposes only and are not available for purchase.*
-    </p>
-</div>
-
-
+                <!-- Nav Links -->
+                <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+                    <ul class="flex flex-col mt-4 font-medium md:flex-row md:space-x-6 md:mt-0 text-sm sm:text-base">
+                        @auth
+                            <li><a href="{{ url('/dashboard') }}" class="block py-2 pl-3 pr-4 hover:underline">Dashboard</a></li>
+                        @else
+                            <li><a href="{{ route('login') }}" class="block py-2 pl-3 pr-4 hover:underline">Log in</a></li>
+                            @if (Route::has('register'))
+                                <li><a href="{{ route('register') }}" class="block py-2 pl-3 pr-4 hover:underline">Register</a></li>
+                            @endif
+                        @endauth
+                        <li>
+                            <a href="{{ route('cart.index') }}"
+                               class="relative inline-flex items-center px-3 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-300 text-xs sm:text-sm">
+                                Cart
+                                @if($cartCount > 0)
+                                    <span class="absolute top-0 right-0 inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 text-[10px] sm:text-xs font-bold text-white transform translate-x-2 -translate-y-2 bg-red-600 rounded-full">
+                                        {{ $cartCount }}
+                                    </span>
+                                @endif
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </section>
+        </header>
+
+        <!-- Hero Text -->
+        <div class="px-6 mx-auto text-center max-w-7xl mt-24 sm:mt-32">
+            <h3 class="mb-4 text-3xl sm:text-4xl font-bold">Welcome to Fastcart</h3>
+            <h2 class="mb-4 text-2xl sm:text-4xl font-bold">A Milestar Trade and Export Limited Project</h2>
+            <p class="mb-6 text-base sm:text-lg">Discover amazing products at unbeatable prices!</p>
+            <a href="#products"
+               class="px-6 py-3 font-semibold text-green-600 transition bg-white rounded-full hover:bg-gray-100">
+                Shop Now
+            </a>
+            <p class="mt-4 text-sm text-gray-300">
+                *All items displayed are for demonstration purposes only and are not available for purchase.*
+            </p>
+        </div>
+
+    </div>
+</section>
+
 
     <img src="{{ asset('storage/products/untitled (3).gif') }}" class="object-cover w-full h-48" />
 
