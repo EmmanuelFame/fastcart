@@ -16,7 +16,7 @@
 <style>
     #hero {
         position: relative;
-        min-height: 80vh;
+        min-height: 70vh;
         overflow: hidden;
         color: white;
     }
@@ -166,7 +166,7 @@
 
         <!-- Hero Text -->
         <div class="px-6 mx-auto text-center max-w-7xl mt-24 sm:mt-32">
-            <h3 class="mb-4 text-3xl sm:text-4xl font-bold">Welcome to Fastcart</h3>
+            <h3 class="mb-4 text-3xl sm:text-4xl mt-4 font-bold">Welcome to Fastcart</h3>
             <h2 class="mb-4 text-2xl sm:text-4xl font-bold">A Milestar Trade and Export Limited Project</h2>
             <p class="mb-6 text-base sm:text-lg">Discover amazing products at unbeatable prices!</p>
             <a href="#products"
