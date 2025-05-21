@@ -151,7 +151,7 @@
 
             <!-- Background Video -->
             <video muted loop autoplay playsinline>
-                <source src="{{ asset('public/videos/Video-2@C.webm') }}" type="video/webm">
+                <source src="{{ asset('videos/Video-2@C.webm') }}" type="video/webm">
             </video>
 
             <!-- Content Layer -->
